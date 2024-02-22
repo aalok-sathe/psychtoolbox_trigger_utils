@@ -85,6 +85,7 @@ function wait_for_trigger_kbqueue(latency)
   %  to map between keys and their positions). If the double value  
   %  corresponding to a particular key is zero, events for that key  
   %  are not added to the queue and will not be reported.
+  % see also: https://github.com/caomw/Psychtoolbox-3/blob/master/Psychtoolbox/PsychBasic/KbTriggerWait.m
   keyList = zeros(256, 'double');
   keyList[KbName('=+')] = 1.0;
   keyList[KbName('Escape')] = 1.0;
