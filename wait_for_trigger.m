@@ -12,8 +12,39 @@
 %   https://github.com/Psychtoolbox-3/Psychtoolbox-3/issues/828
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% from PsychToolBox docs:
+% https://github.com/Psychtoolbox-3/Psychtoolbox-3/blob/master/Psychtoolbox/PsychDocumentation/KbQueue.html
+% The Psychophysics Toolbox function KbCheck looks to see which keys are
+% 		depressed each time that it is called. In effect, KbCheck answers the
+% 		question "Which keys are pressed right now?". By asking this question
+% 		repetitively in a tight Mablab code loop, it is possible to get a 
+% 		reasonably accurate estimate of the time at which a key was pressed.
+% 		However, if a keypress is very brief, it can take place in between
+% 		successive calls to KbCheck and can potentially be lost. For example,
+% 		the Fiber Optic Response Pad (FORP) manufactured by Current Designs for
+% 		use with functional magnetic resonance imaging (fMRI) transduces a 
+% 		trigger signal from the MRI scanner into an apparent keypress that lasts 
+% 		only 8 msec; such signals are often missed even with the fastest 
+% 		processors. 
+%
+% 		In contrast to KbCheck, the function GetChar answers the question "What
+% 		characters have been input to allow this function to return?" where it 
+% 		is possible that the relevant characters were input (and released) even
+% 		before GetChar was invoked thanks to an internal queueing mechanism
+% 		(note that a call to KbCheck might therefore miss characters 
+% 		identifiable by a call to GetChar). However, GetChar requires Matlab's 
+% 		Java and is not recommended for situations requiring precision timing 
+% 		because it is slow and because the timebase used by Java can differ 
+% 		substantially from the timebase used by GetSecs (the documentation for 
+% 		GetChar indicates that discrepancies can be tens or even hundreds of 
+% 		miiliseconds).
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 KbName('UnifyKeyNames');
+% TODO: need to KbQueueCreate at the top
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Log start time of a script after triggering (typically
