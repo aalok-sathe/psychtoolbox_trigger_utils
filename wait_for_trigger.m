@@ -44,6 +44,9 @@
 
 KbName('UnifyKeyNames');
 
+wait_for_trigger_kbqueue;
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Log start time of a script after triggering (typically
@@ -86,11 +89,12 @@ function wait_for_trigger_kbqueue(latency)
   %  corresponding to a particular key is zero, events for that key  
   %  are not added to the queue and will not be reported.
   % see also: https://github.com/caomw/Psychtoolbox-3/blob/master/Psychtoolbox/PsychBasic/KbTriggerWait.m
-  keyList = zeros(256, 'double');
-  keyList[KbName('=+')] = 1.0;
-  keyList[KbName('Escape')] = 1.0;
+  keyList = zeros(256,1, 'double');
+  keyList(KbName('=+')) = 1.0;
+  keyList(KbName('Escape')) = 1.0;
   
-  KbQueueCreate(1, keyList);
+  devices = GetKeyboardIndices;
+  KbQueueCreate(devices(1), keyList);
   KbQueueStart;
   KbQueueFlush;
   [realWakeupTimeSecs] = WaitSecs(double(latency) / 1000.0);
@@ -99,7 +103,7 @@ function wait_for_trigger_kbqueue(latency)
   % KbName(firstPress) % TODO
   
   % secs = KbQueueWait([deviceIndex][, forWhat=0][, untilTime=inf]) % http://psychtoolbox.org/docs/KbQueueWait
-  secs = KbQueueWait(1, forWhat=0, untilTime=inf])
+  secs = KbQueueWait(1, forWhat=0);
   
   
   % wait for at least `waitPeriodSecs` seconds. try to be precise. http://psychtoolbox.org/docs/WaitSecs
@@ -109,3 +113,4 @@ function wait_for_trigger_kbqueue(latency)
   log_time;
 
 end
+
