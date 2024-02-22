@@ -43,7 +43,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 KbName('UnifyKeyNames');
-% TODO: need to KbQueueCreate at the top
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -80,6 +79,20 @@ function wait_for_trigger_kbqueue(latency)
   arguments
         latency = 10
     end
+  
+  % 'keyList' is an optional 256-length vector of doubles (not logicals)  
+  %  with each element corresponding to a particular key (use [KbName](KbName)  
+  %  to map between keys and their positions). If the double value  
+  %  corresponding to a particular key is zero, events for that key  
+  %  are not added to the queue and will not be reported.
+  keyList = zeros(256, 'double');
+  keyList[KbName('=+')] = 1.0;
+  
+  KbQueueCreate(1, keyList);
+  KbQueueStart;
+  KbQueueFlush;
+  [realWakeupTimeSecs] = WaitSecs(double(latency) / 1000.0);
+  
   [pressed, firstPress, firstRelease, lastPress, lastRelease] = KbQueueCheck; %([deviceIndex])
   KbName(firstPress) % TODO
   
