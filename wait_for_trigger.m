@@ -78,7 +78,7 @@ end
 function wait_for_trigger_kbqueue(latency)
   arguments
         latency = 10
-    end
+  end
   
   % 'keyList' is an optional 256-length vector of doubles (not logicals)  
   %  with each element corresponding to a particular key (use [KbName](KbName)  
