@@ -87,17 +87,22 @@ function wait_for_trigger_kbqueue(latency)
   %  are not added to the queue and will not be reported.
   keyList = zeros(256, 'double');
   keyList[KbName('=+')] = 1.0;
+  keyList[KbName('Escape')] = 1.0;
   
   KbQueueCreate(1, keyList);
   KbQueueStart;
   KbQueueFlush;
   [realWakeupTimeSecs] = WaitSecs(double(latency) / 1000.0);
   
-  [pressed, firstPress, firstRelease, lastPress, lastRelease] = KbQueueCheck; %([deviceIndex])
-  KbName(firstPress) % TODO
+  % [pressed, firstPress, firstRelease, lastPress, lastRelease] = KbQueueCheck; %([deviceIndex])
+  % KbName(firstPress) % TODO
+  
+  % secs = KbQueueWait([deviceIndex][, forWhat=0][, untilTime=inf]) % http://psychtoolbox.org/docs/KbQueueWait
+  secs = KbQueueWait(1, forWhat=0, untilTime=inf])
+  
   
   % wait for at least `waitPeriodSecs` seconds. try to be precise. http://psychtoolbox.org/docs/WaitSecs
-  [realWakeupTimeSecs] = WaitSecs(double(latency) / 1000.0); 
+  % [realWakeupTimeSecs] = WaitSecs(double(latency) / 1000.0); 
   
     
   log_time;
