@@ -44,17 +44,26 @@
 
 KbName('UnifyKeyNames');
 
-wait_for_trigger_kbqueue;
+global script_start_time;
+script_start_time = GetSecs;
 
+while 1
+    wait_for_trigger_kbqueue;
+end 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Log start time of a script after triggering (typically
 %%%% called from within a triggering method; see below)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function log_time()
+function run_start_time = log_time()
+  
   run_start_time = GetSecs;
-  fprintf('\n------------- TRIGGERED! STARTING RUN! Run onset %f\n', run_start_time)
+
+  % global script_start_time;
+  % fprintf('\n------------- TRIGGERED! STARTING RUN! Run onset since start of script: %f\n', run_start_time-script_start_time)
+  
+  fprintf('\n------------- TRIGGERED! STARTING RUN! Run onset (absolute): %f\n', run_start_time)
 end
 
 
@@ -63,7 +72,7 @@ end
 %%%% shortest of pulse triggers (may miss triggers!)
 %%%% taken from MDloc implementation by `lipkinb@mit.edu`
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function wait_for_trigger_kbcheck()
+function wait_for_trigger_kbcheck
   [~, ~, keyCode] = KbCheck;
   while ( ~keyCode(KbName('=+')) )  &&  ~keyCode(KbName('+'))
      [~, ~, keyCode] = KbCheck;
@@ -78,9 +87,9 @@ end
 %%%% so we don't miss any short pulse triggers 
 %%%% tradeoff: won't miss triggers but has some latency
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function wait_for_trigger_kbqueue(latency)
+function run_start_time = wait_for_trigger_kbqueue(latency)
   arguments
-        latency = 10
+        latency = 100
   end
   
   % 'keyList' is an optional 256-length vector of doubles (not logicals)  
@@ -89,28 +98,25 @@ function wait_for_trigger_kbqueue(latency)
   %  corresponding to a particular key is zero, events for that key  
   %  are not added to the queue and will not be reported.
   % see also: https://github.com/caomw/Psychtoolbox-3/blob/master/Psychtoolbox/PsychBasic/KbTriggerWait.m
-  keyList = zeros(256,1, 'double');
+  keyList = zeros(1, 256, 'double');
   keyList(KbName('=+')) = 1.0;
   keyList(KbName('Escape')) = 1.0;
   
   devices = GetKeyboardIndices;
-  KbQueueCreate(devices(1), keyList);
+  KbQueueCreate(-1, keyList);
   KbQueueStart;
   KbQueueFlush;
+
   [realWakeupTimeSecs] = WaitSecs(double(latency) / 1000.0);
   
   % [pressed, firstPress, firstRelease, lastPress, lastRelease] = KbQueueCheck; %([deviceIndex])
   % KbName(firstPress) % TODO
   
   % secs = KbQueueWait([deviceIndex][, forWhat=0][, untilTime=inf]) % http://psychtoolbox.org/docs/KbQueueWait
-  secs = KbQueueWait(1, forWhat=0);
-  
-  
-  % wait for at least `waitPeriodSecs` seconds. try to be precise. http://psychtoolbox.org/docs/WaitSecs
-  % [realWakeupTimeSecs] = WaitSecs(double(latency) / 1000.0); 
-  
-    
-  log_time;
+  run_start_time_acc_kbq = KbQueueWait(-1);
+  run_start_time = log_time;
+
+  fprintf('kbq start minus our start: %f\n', run_start_time - run_start_time_acc_kbq);
 
 end
 
