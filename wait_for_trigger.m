@@ -47,9 +47,9 @@ KbName('UnifyKeyNames');
 global script_start_time;
 script_start_time = GetSecs;
 
-while 1
-    wait_for_trigger_kbqueue;
-end 
+% while 1
+%     wait_for_trigger_kbqueue;
+% end 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -92,6 +92,8 @@ function run_start_time = wait_for_trigger_kbqueue(latency)
         latency = 100
   end
   
+  fprintf('--------- CALLED `wait_for_trigger_kbqueue`')
+
   % 'keyList' is an optional 256-length vector of doubles (not logicals)  
   %  with each element corresponding to a particular key (use [KbName](KbName)  
   %  to map between keys and their positions). If the double value  
