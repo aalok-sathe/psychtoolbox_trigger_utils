@@ -20,6 +20,7 @@ function run_start_time = wait_for_trigger_kbqueue(latency)
   % see also: https://github.com/caomw/Psychtoolbox-3/blob/master/Psychtoolbox/PsychBasic/KbTriggerWait.m
   keyList = zeros(1, 256, 'double');
   keyList(KbName('=+')) = 1.0;
+  keyList(KbName('+')) = 1.0;
   keyList(KbName('Escape')) = 1.0;
   
   dvc = find_device;
