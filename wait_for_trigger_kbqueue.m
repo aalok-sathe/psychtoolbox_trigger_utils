@@ -75,7 +75,10 @@ function run_start_time = wait_for_trigger_kbqueue(delay_milliseconds, esc_key_l
   if isempty(evt)
       % evt is [] ie. no trigger received, but KbCheck registered ESCAPE key.
       % END experiment code
+      sca;
+      clear all;
       error('EXITING due to ESC!');
+
   else
       % secs = KbQueueWait([deviceIndex][, forWhat=0][, untilTime=inf]) % http://psychtoolbox.org/docs/KbQueueWait
       run_start_time = evt.Time; %KbQueueWait(dvc);
