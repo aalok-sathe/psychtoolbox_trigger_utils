@@ -1,3 +1,7 @@
+%%%%
+%%%% 2024 asathe@mit.edu
+%%%%
+
 function dev_idx = find_device(target)
     arguments
         target = 'Current Designs';
@@ -15,7 +19,7 @@ function dev_idx = find_device(target)
     for idx = 1:length(devs)
         prod_ = devs(idx).product;
         dev_idx_ = devs(idx).index;
-        fprintf('\nproduct: %s; index: %d\n', prod_, dev_idx_);
+        fprintf('\nproduct: %s; index: %d', prod_, dev_idx_);
         
         if contains(prod_, target)
             dev_idx = dev_idx_;
@@ -26,6 +30,7 @@ function dev_idx = find_device(target)
             % break;
         end
     end
+    fprintf('\n');
 
     % if we didn't find the primary target, 
     % try the secondary target (we are probably not
@@ -34,6 +39,6 @@ function dev_idx = find_device(target)
         dev_idx = dev_idx_alt;
     end
 
-    fprintf('\nFINAL: product: %s; index: %d\n', dev_idx);
+    fprintf('\nFINAL: index: %d\n\n', dev_idx);
 
 end
