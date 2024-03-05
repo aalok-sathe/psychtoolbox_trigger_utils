@@ -48,6 +48,6 @@ What you can do: use this updated script in a very simple way, explained below.
     
     
 If you want to make your experiment **really portable** you may wish to instead clone this repository 
-and committing the contents of it alongside your own code, so it gets 'baked into' your experiment
+and commit the contents of it alongside your own code, so it gets 'baked into' your experiment code
 (this means, though, that you won't receive any updates to this repository in case we need to make
 changes down the line). Alternatively, you could add this repository as a [`git submodule`](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
