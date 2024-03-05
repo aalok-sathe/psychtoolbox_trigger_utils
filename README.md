@@ -32,3 +32,6 @@ What you can do: use this updated script in a very simple way, explained below.
     run_start_time = wait_for_trigger_kbqueue;
     ```
     
+- NOTE: it may be necessary to **restart MATLAB** when you connect the USB for the trigger box
+    since using an existing MATLAB session may prevent the script from detecting any
+    newly attached devices
