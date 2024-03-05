@@ -1,8 +1,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%% Use KbQueue and a certain allowable latency (ms) 
-%%%% so we don't miss any short pulse triggers 
-%%%% tradeoff: won't miss triggers but has some latency
+%%%% Robust triggering mechanism
+%%%% using KbQueue so we don't miss any short pulse triggers
 %%%% 2024, asathe@mit.edu
+%%%% https://github.mit.edu/EvLab/TOOL_Matlab_trigger_utils/blob/main/README.md
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function run_start_time = wait_for_trigger_kbqueue(delay_milliseconds, esc_key_latency)
   arguments
@@ -24,7 +24,7 @@ function run_start_time = wait_for_trigger_kbqueue(delay_milliseconds, esc_key_l
       % note that this again has no bearing on detection of the
       % actual trigger since keyboard events are buffered in a
       % queue and always processed
-      esc_key_latency = .20
+      esc_key_latency = .30
   end
   
   KbName('UnifyKeyNames')
