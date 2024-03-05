@@ -22,7 +22,7 @@ What you can do: use this updated script in a very simple way, explained below.
     - If the repository already exists, double-check that it is up to date using `git pull` inside it
         or refer to the `LAST_PULLED_AT....` file if it exists (see bonus point below)
     
-- Create a **symlink** to that directory from **your experiment script top-level**
+- Create a **symlink** to that directory from **your experiment script top-level** (needs to be done per experiment script)
     ```bash
     ln -s ~/evlab-experiments/TOOL_Matlab_trigger_utils
     ```
