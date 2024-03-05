@@ -19,21 +19,29 @@ What you can do: use this updated script in a very simple way, explained below.
     cd ~/evlab-experiments
     git clone git@github.mit.edu:evlab/TOOL_Matlab_trigger_utils.git
     ```
-    - If the repository already exists, double-check that it is up to date using `git pull` inside it.
+    - If the repository already exists, double-check that it is up to date using `git pull` inside it
+        or refer to the `LAST_PULLED_AT....` file if it exists (see bonus point below)
+    
 - Create a **symlink** to that directory from **your experiment script top-level**
     ```bash
     ln -s ~/evlab-experiments/TOOL_Matlab_trigger_utils
     ```
+
 - Next, modify your main script to include the new cloned repo in its path
     ```matlab
     TRIGGER_UTIL_DIR = [pwd filesep 'TOOL_Matlab_trigger_utils']; % trigger utils dir
     addpath(TRIGGER_UTIL_DIR);
     ```
+
 - Finally, include a statement in your main script where you need to wait for the trigger
     ```matlab
     run_start_time = wait_for_trigger_kbqueue;
     ```
-    
+
+- As a bonus, copy the `post-merge` script into `.git/hooks/` to create a file
+    timestamping the last time this repo was pulled and merged from remote so that
+    you know you're always running the latest trigger code: `cp ./post-merge .git/hooks/`
+   
 - NOTE: it may be necessary to **restart MATLAB** when you connect the USB for the trigger box
     since using an existing MATLAB session may prevent the script from detecting any
     newly attached devices
