@@ -22,7 +22,7 @@ What you can do: use this updated script in a very simple way, explained below.
     - If the repository already exists, double-check that it is up to date using `git pull` inside it
         or refer to the `LAST_PULLED_AT....` file if it exists (see bonus point below)
     
-- Create a **symlink** to that directory from **your experiment script top-level** (needs to be done per experiment script)
+- Create a **symlink** to that directory from the **directory containing your experiment script(s)** (needs to be done once per experiment)
     ```bash
     ln -s ~/evlab-experiments/TOOL_Matlab_trigger_utils
     ```
@@ -45,3 +45,9 @@ What you can do: use this updated script in a very simple way, explained below.
 - NOTE: it may be necessary to **restart MATLAB** when you connect the USB for the trigger box
     since using an existing MATLAB session may prevent the script from detecting any
     newly attached devices
+    
+    
+If you want to make your experiment **really portable** you may wish to instead clone this repository 
+and committing the contents of it alongside your own code, so it gets 'baked into' your experiment
+(this means, though, that you won't receive any updates to this repository in case we need to make
+changes down the line). Alternatively, you could add this repository as a [`git submodule`](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
