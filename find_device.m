@@ -13,6 +13,9 @@ function dev_idx = find_device(target)
         dev_idx_ = devs(idx).index;
         fprintf('\nproduct: %s; index: %d\n', prod, dev_idx_);
         
+        if (idx == 1)
+            dev_idx = dev_idx_;
+        end
         if contains(prod, target)
             dev_idx = dev_idx_;
             % break;
