@@ -14,7 +14,7 @@ What you can do: use this updated script in a very simple way, explained below.
 # Adding these utils to your main script:
 
 - First, clone the repository at the top level of experiments (`~/evlab-experiments`) 
-    on the scanning laptop using
+    on the scanning laptop (only needs to be done once per laptop) using
     ```bash
     cd ~/evlab-experiments
     git clone git@github.mit.edu:evlab/TOOL_Matlab_trigger_utils.git
