@@ -3,9 +3,10 @@
 %%%% so we don't miss any short pulse triggers 
 %%%% tradeoff: won't miss triggers but has some latency
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function run_start_time = wait_for_trigger_kbqueue(latency)
+function run_start_time = wait_for_trigger_kbqueue(delay_milliseconds, timeout_seconds)
   arguments
-        latency = 100
+        delay_milliseconds = 100,
+        timeout_seconds = 1.0
   end
   
   KbName('UnifyKeyNames')
@@ -23,17 +24,28 @@ function run_start_time = wait_for_trigger_kbqueue(latency)
   keyList(KbName('+')) = 1.0;
   keyList(KbName('Escape')) = 1.0;
   
+  % still allow exiting via KbCheck for triggering via scanning laptop (useful for debugging) 
+  % but only check esc and trigger keys
+  RestrictKeysForKbCheck([KbName('=+'), KbName('+'), KbName('Escape')])
+  
   dvc = find_device;
 
   KbQueueCreate(dvc, keyList);
   KbQueueStart(dvc);
   KbQueueFlush(dvc);
-  WaitSecs(double(latency) / 1000.0);
+  WaitSecs(double(delay_milliseconds) / 1000.0);
   
+  evt = [];
+  while ~KbCheck && isempty(evt)
+      % Wait up to timeout_seconds for a new trigger event
+      evt = KbEventGet(dvc, timeout_seconds);
+  end
   % secs = KbQueueWait([deviceIndex][, forWhat=0][, untilTime=inf]) % http://psychtoolbox.org/docs/KbQueueWait
-  run_start_time = KbQueueWait(dvc);
+  run_start_time = evt.Time; %KbQueueWait(dvc);
   log_time;
-
-%   fprintf('kbq start minus our start: %f\n', run_start_time - run_start_time_acc_kbq);
+  
+  % Release queue
+  KbEventFlush(dvc);
+  KbQueueRelease(dvc);
 
 end
