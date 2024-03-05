@@ -1,7 +1,15 @@
 # TOOL_Matlab_trigger_utils
 
-Scripts to overcome an issue with missing trigger pulses. To read more about what this is about, see:
+This set of scripts reliably picks up triggers from the _Current Designs_ interface box in 
+the fMRI scanning environment. 
+
+Previous methods to check for trigger had a mechanism by which they occasionally failed to trigger on time.
+Failing to trigger on time can offset your experiment's neural data and the logged stimulus data by 1 TR (or more),
+throwing off your modeling (reducing effect sizes for block design, or completely screwing with event-related design).
+To understand why the previous methods sometimes failed, and how we came up with the code in this repo, see:
 https://github.mit.edu/EvLab/REFERENCE_tech_wiki/blob/master/matlab/missed_triggers_workaround.md
+
+What you can do: use this updated script in a very simple way, explained below. 
 
 # Adding these utils to your main script:
 
