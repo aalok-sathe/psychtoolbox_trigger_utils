@@ -15,10 +15,12 @@ What you can do: use this updated script in a very simple way, explained below.
 
 - First, clone the repository at the top level of experiments (`~/evlab-experiments`) 
     on the scanning laptop using
-    ```
+    ```bash
+    cd ~/evlab-experiments
     git clone git@github.mit.edu:evlab/TOOL_Matlab_trigger_utils.git
     ```
-- Create a symlink to that directory from **your experiment script top-level**
+    - If the repository already exists, double-check that it is up to date using `git pull` inside it.
+- Create a **symlink** to that directory from **your experiment script top-level**
     ```bash
     ln -s ~/evlab-experiments/TOOL_Matlab_trigger_utils
     ```
