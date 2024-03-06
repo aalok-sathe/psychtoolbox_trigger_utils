@@ -12,7 +12,7 @@ What you can do: use this script in a very simple way, explained below.
 
 # Adding these utils to your main script:
 
-- First, clone the repository at the top level of experiments (`~/evlab-experiments`) 
+- First, clone the repository at the top level of experiments (`~/experiments`) 
     on the scanning laptop (only needs to be done once per laptop) using
     ```bash
     cd ~/experiments
@@ -43,10 +43,14 @@ What you can do: use this script in a very simple way, explained below.
    
 - NOTE: it may be necessary to **restart MATLAB** when you connect the USB for the trigger box
     since using an existing MATLAB session may prevent the script from detecting any
-    newly attached devices
+    newly attached devices.
+  Depending on your scanning set up, it may also be necessary to adjust the string name of
+  your interface device you're expecting triggers from. Best done ahead of time before a scan
+  to iron out any issues!
     
     
 If you want to make your experiment **really portable** you may wish to instead clone this repository 
 and commit the contents of it alongside your own code, so it gets 'baked into' your experiment code
 (this means, though, that you won't receive any updates to this repository in case we need to make
-changes down the line). Alternatively, you could add this repository as a [`git submodule`](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
+changes down the line). 
+Alternatively, you could add this repository as a [`git submodule`](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
